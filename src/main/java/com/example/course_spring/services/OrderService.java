@@ -29,6 +29,10 @@ public class OrderService {
     }
 
     public Order create(Order order) {
+        if (order.getClient() == null || order.getClient().getId() == null) {
+            throw new IllegalArgumentException("Cliente não pode ser nulo");
+        }
+
         User client = userRepository.findById(order.getClient().getId())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado! "));
 
